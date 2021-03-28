@@ -1,4 +1,4 @@
-package com.reksoft.practice;
+package com.reksoft.practice.calc;
 
 public class HelloWorld {
     public static void sayHello() {
