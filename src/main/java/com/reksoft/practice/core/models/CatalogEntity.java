@@ -17,9 +17,7 @@ public class CatalogEntity {
     private String categoryType;
     private String categoryName;
 
-    /*
-    Getters adn Setters
-    * */
+
 
     public UUID getId() {
         return id;

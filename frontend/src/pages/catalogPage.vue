@@ -27,6 +27,7 @@
           Количество товара на складе
         </div>
         <div class="col-2">
+          <nav-bar/>
         </div>
       </div>
       <hr>
@@ -35,6 +36,9 @@
         :key="product.id"
         :product="product"
       />
+      <div class="pagination-component">
+        <pagination-component/>
+      </div>
       <div>
         <b-modal id="add-modal" hide-footer title="Добавить товар">
           <div class="d-block text-left">
@@ -71,12 +75,16 @@
 
 <script>
 import productComponent from '../components/productComponent'
+import navBar from '../components/navBar'
+import paginationComponent from '../components/paginationComponent'
 import { eventBus } from '../main'
 
 export default {
   name: 'Catalog',
   components: {
-    productComponent
+    productComponent,
+    navBar,
+    paginationComponent
   },
   data() {
     return {
@@ -96,9 +104,14 @@ export default {
     }
   },
   methods: {
-    async getCatalog() {
-      this.productsFromServer = await this.$api.catalog.getCatalog();
+    async getCatalog(currentPage) {
+      this.productsFromServer = await this.$api.catalog.getCatalog(currentPage,2);
       this.products = await this.productsFromServer.data.content;
+      console.log(this.products);
+    },
+    async getCatalogWithFilters(searchText, sortType) {
+        this.productsFromServer = await this.$api.catalog.getCatalogWithFilters(searchText, sortType);
+        this.products = await this.productsFromServer.data.content;
     },
     openEditModal(id) {
       this.editProduct = this.products.find(item => item.id === id);
@@ -121,6 +134,9 @@ export default {
     this.getCatalog();
     eventBus.$on('deleteItem', this.getCatalog);
     eventBus.$on('editItem', this.openEditModal);
+    eventBus.$on('searchProducts', this.getCatalogWithFilters);
+    eventBus.$on('sortProducts', this.getCatalogWithFilters);
+    eventBus.$on('changePage', this.getCatalog)
   }
 }
 </script>
@@ -136,6 +152,11 @@ export default {
 }
 .col-1 {
   text-align: center;
+}
+.pagination-component {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 </style>
 

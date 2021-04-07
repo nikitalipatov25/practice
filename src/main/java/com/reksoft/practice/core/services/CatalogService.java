@@ -20,8 +20,13 @@ public class CatalogService {
         this.catalogRepository = catalogRepository;
     }
 
-    public Page<CatalogEntity> catalogFindAll(Pageable pageable) {
-        return catalogRepository.findAll(pageable);
+    public Page<CatalogEntity> catalogFindAll(String searching, Pageable pageable) {
+        if (searching != null && !searching.isBlank()) {
+            var result = catalogRepository.findByProductNameLike("%" + searching + "%", pageable);
+            return result;
+        } else {
+            return catalogRepository.findAll(pageable);
+        }
     }
 
     public Optional<CatalogEntity> catalogFindById(UUID id) {

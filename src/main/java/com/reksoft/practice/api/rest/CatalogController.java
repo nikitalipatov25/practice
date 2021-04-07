@@ -31,8 +31,8 @@ public class CatalogController {
     }
 
     @GetMapping()
-    public ResponseEntity<Page<CatalogEntity>> getCatalog(Pageable pageable) {
-        Page<CatalogEntity> catalogEntityList = catalogService.catalogFindAll(pageable);
+    public ResponseEntity<Page<CatalogEntity>> getCatalog(@RequestParam(name = "searching", required = false)String searching, Pageable pageable) {
+        Page<CatalogEntity> catalogEntityList = catalogService.catalogFindAll(searching, pageable);
         return ResponseEntity.ok(catalogEntityList);
     }
 
