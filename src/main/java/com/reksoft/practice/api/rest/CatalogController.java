@@ -30,6 +30,7 @@ public class CatalogController {
         this.catalogService = catalogService;
     }
 
+    // this method is shit
     @GetMapping()
     public ResponseEntity<Page<CatalogEntity>> getCatalog(@RequestParam(name = "searching", required = false)String searching, Pageable pageable) {
         Page<CatalogEntity> catalogEntityList = catalogService.catalogFindAll(searching, pageable);

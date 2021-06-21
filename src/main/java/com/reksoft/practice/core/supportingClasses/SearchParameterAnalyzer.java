@@ -8,7 +8,6 @@ public class SearchParameterAnalyzer {
     private String nameOfSearchedProduct;
     private Double bottomLineOfPriceInSearchedProduct;
     private Double topLineOfPriceInSearchedProduct;
-    private String regEx = "([а-яА-Я]+)?(\\s+)?(\\d+)?(\\s+)?-?(\\s+)?(\\d+)?(\\s+)?([а-яА-Я]+)?";
 
 
     public String getNameOfSearchedProduct() {
@@ -36,6 +35,7 @@ public class SearchParameterAnalyzer {
     }
 
     public String getRegEx() {
+        String regEx = "([а-яА-Я]+)?(\\s+)?(\\d+)?(\\s+)?-?(\\s+)?(\\d+)?(\\s+)?([а-яА-Я]+)?";
         return regEx;
     }
 
